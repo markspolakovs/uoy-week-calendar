@@ -33,5 +33,5 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
 
     }
 
-    return calendar.serve(res);
+    calendar.serve(res);
 }
