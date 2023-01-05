@@ -4,6 +4,10 @@ interface Period {
     getFormattedString(inputDate: Date): string;
 }
 
+type AcademicYear = {
+    periods: Period[];
+}
+
 class Term implements Period {
     readonly startDate: Date;
     readonly type: string;
@@ -122,95 +126,135 @@ class SemesterThree implements Period {
     }
 }
 
-export const periods: Period[] = [
-    new Term(new Date(Date.UTC(2018,8,24)),"Autumn"),
-    new Holiday(new Date(Date.UTC(2018,11,3)),"Christmas"),
-    new Term(new Date(Date.UTC(2019,0,7)),"Spring"),
-    new Holiday(new Date(Date.UTC(2019,2,18)), "Easter"),
-    new Term(new Date(Date.UTC(2019,3,15)),"Summer"),
-    new Holiday(new Date(Date.UTC(2019,5,24)),"Summer"),
-    new Term(new Date(Date.UTC(2019,8,30)),"Autumn"),
-    new Holiday(new Date(Date.UTC(2019,11,9)),"Christmas"),
-    new Term(new Date(Date.UTC(2020,0,6)),"Spring"),
-    new Holiday(new Date(Date.UTC(2020,2,16)),"Easter"),
-    new Term(new Date(Date.UTC(2020,3,14)),"Summer"),
-    new Holiday(new Date(Date.UTC(2020,5,22)),"Summer"),
-    new Term(new Date(Date.UTC(2020,8,28)),"Autumn"),
-    new Holiday(new Date(Date.UTC(2020,11,7)),"Christmas"),
-    new Term(new Date(Date.UTC(2021,0,11)),"Spring"),
-    new Holiday(new Date(Date.UTC(2021,2,22)),"Easter"),
-    new Term(new Date(Date.UTC(2021,3,19)),"Summer"),
-    new Holiday(new Date(Date.UTC(2021,5,28)),"Summer"),
-    new Term(new Date(Date.UTC(2021,8,27)),"Autumn"),
-    new Holiday(new Date(Date.UTC(2021,11,6)),"Christmas"),
-    new Term(new Date(Date.UTC(2022,0,10)),"Spring"),
-    new Holiday(new Date(Date.UTC(2022,2,21)),"Easter"),
-    new Term(new Date(Date.UTC(2022,3,19)),"Summer"),
-    new Holiday(new Date(Date.UTC(2022,5,27)),"Summer"),
-    new Term(new Date(Date.UTC(2022,8,26)),"Autumn"),
-    new Holiday(new Date(Date.UTC(2022,11,5)),"Christmas"),
-    new Term(new Date(Date.UTC(2023,0,9)),"Spring"),
-    new Holiday(new Date(Date.UTC(2023,2,20)),"Easter"),
-    new Term(new Date(Date.UTC(2023,3,17)),"Summer"),
-    new Holiday(new Date(Date.UTC(2023,5,26)),"Summer"),
-
-    // Transition to Semesters
-    // 2023/24
-    new SemesterOne(new Date(Date.UTC(2023, 8, 18))),
-    new Holiday(new Date(Date.UTC(2023,11,18)), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2024,0,8))),
-    new Holiday(new Date(Date.UTC(2024,2,25)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2024,3,8)), 7),
-    new Holiday(new Date(Date.UTC(2024,5,10)), "Summer"),
-
-    // 2024/25
-    new SemesterOne(new Date(Date.UTC(2024,8,16))),
-    new Holiday(new Date(2024,11,9), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2025,0,6))),
-    new Holiday(new Date(Date.UTC(2025,3,7)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2025,3,22)), 9),
-    new Holiday(new Date(Date.UTC(2025,5,9)), "Summer"),
-
-    // 2025/26
-    new SemesterOne(new Date(Date.UTC(2025,8,16))),
-    new Holiday(new Date(2025,11,9), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2026,0,8))),
-    new Holiday(new Date(Date.UTC(2026,2,25)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2026,3,8)), 8),
-    new Holiday(new Date(Date.UTC(2026,5,10)), "Summer"),
-
-    // 2026/27
-    new SemesterOne(new Date(Date.UTC(2026,8,14))),
-    new Holiday(new Date(2026,11,21), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2027,0,11))),
-    new Holiday(new Date(Date.UTC(2027,2,22)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2027,3,13)), 6),
-    new Holiday(new Date(Date.UTC(2027,5,14)), "Summer"),
-
-    // 2027/28
-    new SemesterOne(new Date(Date.UTC(2027,8,20))),
-    new Holiday(new Date(2027,11,20), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2028,0,10))),
-    new Holiday(new Date(Date.UTC(2028,3,10)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2028,3,24)), 9),
-    new Holiday(new Date(Date.UTC(2028,5,12)), "Summer"),
-
-    // 2028/29
-    new SemesterOne(new Date(Date.UTC(2028,8,18))),
-    new Holiday(new Date(2028,11,18), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2029,0,8))),
-    new Holiday(new Date(Date.UTC(2029,2,26)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2029,3,9)), 7),
-    new Holiday(new Date(Date.UTC(2029,5,14)), "Summer"),
-
-    // 2029/30
-    new SemesterOne(new Date(Date.UTC(2029,8,17))),
-    new Holiday(new Date(2029,11,17), "Christmas"),
-    new SemesterTwo(new Date(Date.UTC(2030,0,7))),
-    new Holiday(new Date(Date.UTC(2030,3,8)), "Easter"),
-    new SemesterThree(new Date(Date.UTC(2030,3,22)), 9),
-    new Holiday(new Date(Date.UTC(2030,5,10)), "Summer"),
-].sort((a, b) => a.startDate.getTime() - b.startDate.getTime());
+export const academicYears: AcademicYear[] = [
+    {
+        periods: [
+            new Term(new Date(Date.UTC(2018,8,24)),"Autumn"),
+            new Holiday(new Date(Date.UTC(2018,11,3)),"Christmas"),
+            new Term(new Date(Date.UTC(2019,0,7)),"Spring"),
+            new Holiday(new Date(Date.UTC(2019,2,18)), "Easter"),
+            new Term(new Date(Date.UTC(2019,3,15)),"Summer"),
+            new Holiday(new Date(Date.UTC(2019,5,24)),"Summer"),
+        ]
+    },
+    {
+        periods: [
+            new Term(new Date(Date.UTC(2019,8,30)),"Autumn"),
+            new Holiday(new Date(Date.UTC(2019,11,9)),"Christmas"),
+            new Term(new Date(Date.UTC(2020,0,6)),"Spring"),
+            new Holiday(new Date(Date.UTC(2020,2,16)),"Easter"),
+            new Term(new Date(Date.UTC(2020,3,14)),"Summer"),
+            new Holiday(new Date(Date.UTC(2020,5,22)),"Summer"),
+        ]
+    },
+    {
+        periods: [
+            new Term(new Date(Date.UTC(2020,8,28)),"Autumn"),
+            new Holiday(new Date(Date.UTC(2020,11,7)),"Christmas"),
+            new Term(new Date(Date.UTC(2021,0,11)),"Spring"),
+            new Holiday(new Date(Date.UTC(2021,2,22)),"Easter"),
+            new Term(new Date(Date.UTC(2021,3,19)),"Summer"),
+            new Holiday(new Date(Date.UTC(2021,5,28)),"Summer"),
+        ]
+    },
+    {
+        periods: [
+            new Term(new Date(Date.UTC(2021,8,27)),"Autumn"),
+            new Holiday(new Date(Date.UTC(2021,11,6)),"Christmas"),
+            new Term(new Date(Date.UTC(2022,0,10)),"Spring"),
+            new Holiday(new Date(Date.UTC(2022,2,21)),"Easter"),
+            new Term(new Date(Date.UTC(2022,3,19)),"Summer"),
+            new Holiday(new Date(Date.UTC(2022,5,27)),"Summer"),
+        ]
+    },
+    {
+        periods: [
+            new Term(new Date(Date.UTC(2022,8,26)),"Autumn"),
+            new Holiday(new Date(Date.UTC(2022,11,5)),"Christmas"),
+            new Term(new Date(Date.UTC(2023,0,9)),"Spring"),
+            new Holiday(new Date(Date.UTC(2023,2,20)),"Easter"),
+            new Term(new Date(Date.UTC(2023,3,17)),"Summer"),
+            new Holiday(new Date(Date.UTC(2023,5,26)),"Summer"),
+        ]
+    },
+    {
+        periods: [
+            // 2023/24
+            new SemesterOne(new Date(Date.UTC(2023, 8, 18))),
+            new Holiday(new Date(Date.UTC(2023,11,18)), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2024,0,8))),
+            new Holiday(new Date(Date.UTC(2024,2,25)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2024,3,8)), 7),
+            new Holiday(new Date(Date.UTC(2024,5,10)), "Summer"),
+        ]
+    },
+    {
+        periods: [
+            // 2024/25
+            new SemesterOne(new Date(Date.UTC(2024, 8, 16))),
+            new Holiday(new Date(2024, 11, 9), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2025, 0, 6))),
+            new Holiday(new Date(Date.UTC(2025, 3, 7)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2025, 3, 22)), 9),
+            new Holiday(new Date(Date.UTC(2025, 5, 9)), "Summer"),
+        ]
+    },
+    {
+        periods: [
+            // 2025/26
+            new SemesterOne(new Date(Date.UTC(2025,8,16))),
+            new Holiday(new Date(2025,11,9), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2026,0,8))),
+            new Holiday(new Date(Date.UTC(2026,2,25)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2026,3,8)), 8),
+            new Holiday(new Date(Date.UTC(2026,5,10)), "Summer"),
+        ]
+    },
+    {
+       periods: [
+           // 2026/27
+           new SemesterOne(new Date(Date.UTC(2026,8,14))),
+           new Holiday(new Date(2026,11,21), "Christmas"),
+           new SemesterTwo(new Date(Date.UTC(2027,0,11))),
+           new Holiday(new Date(Date.UTC(2027,2,22)), "Easter"),
+           new SemesterThree(new Date(Date.UTC(2027,3,13)), 6),
+           new Holiday(new Date(Date.UTC(2027,5,14)), "Summer"),
+       ]
+    },
+    {
+        periods: [
+            // 2027/28
+            new SemesterOne(new Date(Date.UTC(2027,8,20))),
+            new Holiday(new Date(2027,11,20), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2028,0,10))),
+            new Holiday(new Date(Date.UTC(2028,3,10)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2028,3,24)), 9),
+            new Holiday(new Date(Date.UTC(2028,5,12)), "Summer"),
+        ]
+    },
+    {
+        periods: [
+            // 2028/29
+            new SemesterOne(new Date(Date.UTC(2028,8,18))),
+            new Holiday(new Date(2028,11,18), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2029,0,8))),
+            new Holiday(new Date(Date.UTC(2029,2,26)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2029,3,9)), 7),
+            new Holiday(new Date(Date.UTC(2029,5,14)), "Summer"),
+        ]
+    },
+    {
+        periods: [
+            // 2029/30
+            new SemesterOne(new Date(Date.UTC(2029,8,17))),
+            new Holiday(new Date(2029,11,17), "Christmas"),
+            new SemesterTwo(new Date(Date.UTC(2030,0,7))),
+            new Holiday(new Date(Date.UTC(2030,3,8)), "Easter"),
+            new SemesterThree(new Date(Date.UTC(2030,3,22)), 9),
+            new Holiday(new Date(Date.UTC(2030,5,10)), "Summer"),
+        ]
+    }
+];
 
 export function getWeeksBetween(startDate: Date, endDate: Date): number {
     return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
