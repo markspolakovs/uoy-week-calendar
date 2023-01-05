@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { getCalendar } from "./calendar";
 
 export const app = express();
+export const port = process.env.PORT ?? 9000;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -13,5 +14,5 @@ app.get('/', (req: Request, res: Response) => {
 
 app.get('/calendar', getCalendar);
 
-app.listen(9000);
-console.log(`App running on port 9000`);
+app.listen(port);
+console.log(`App running on port ${port}`);
