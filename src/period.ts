@@ -256,25 +256,10 @@ export const academicYears: AcademicYear[] = [
     }
 ];
 
+export function getAcademicYear(academicYear: AcademicYear): string {
+    return `${academicYear.periods[0].startDate.getFullYear()}/${academicYear.periods.slice(-1)[0].startDate.getFullYear()}`
+}
+
 export function getWeeksBetween(startDate: Date, endDate: Date): number {
     return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
-}
-
-export function getCurrentPeriod(date: Date): Period {
-    return periods.filter(period => (period.startDate.getTime() <= date.getTime())).slice(-1)[0];
-}
-
-export function getStartOfPeriod(startDate: Date): Date {
-    let period = periods.filter(period => (period.startDate.getTime() <= startDate.getTime()))[0];
-    return period.startDate;
-}
-
-export function getFormattedString(date: Date): string {
-   const period = getCurrentPeriod(date);
-
-   return period.getFormattedString(date);
-}
-
-export function getPeriodsInYear(year: Date): Period[] {
-    return periods.filter(period => (period.startDate.getFullYear() > year.getFullYear() - 1 && period.startDate.getFullYear() < year.getFullYear() + 1));
 }
