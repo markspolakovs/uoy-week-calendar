@@ -90,7 +90,7 @@ class SemesterTwo implements Period {
         }
 
         return weekType;
-    } 
+    }
 }
 
 // Period after Easter before Summer
@@ -119,10 +119,10 @@ class SemesterThree implements Period {
         }
 
         return `${this.type} ${weekType}`
-    } 
+    }
 }
 
-const periods: Period[] = [
+export const periods: Period[] = [
     new Term(new Date(Date.UTC(2018,8,24)),"Autumn"),
     new Holiday(new Date(Date.UTC(2018,11,3)),"Christmas"),
     new Term(new Date(Date.UTC(2019,0,7)),"Spring"),
@@ -146,7 +146,7 @@ const periods: Period[] = [
     new Term(new Date(Date.UTC(2022,0,10)),"Spring"),
     new Holiday(new Date(Date.UTC(2022,2,21)),"Easter"),
     new Term(new Date(Date.UTC(2022,3,19)),"Summer"),
-    new Holiday(new Date(Date.UTC(2022,5,27)),"Summer"), 
+    new Holiday(new Date(Date.UTC(2022,5,27)),"Summer"),
     new Term(new Date(Date.UTC(2022,8,26)),"Autumn"),
     new Holiday(new Date(Date.UTC(2022,11,5)),"Christmas"),
     new Term(new Date(Date.UTC(2023,0,9)),"Spring"),
@@ -220,8 +220,8 @@ export function getCurrentPeriod(date: Date): Period {
     return periods.filter(period => (period.startDate.getTime() <= date.getTime())).slice(-1)[0];
 }
 
-export function getEndOfPeriod(startDate: Date): Date {
-    let period = periods.filter(period => (period.startDate.getTime() >= startDate.getTime()))[0];
+export function getStartOfPeriod(startDate: Date): Date {
+    let period = periods.filter(period => (period.startDate.getTime() <= startDate.getTime()))[0];
     return period.startDate;
 }
 
@@ -229,4 +229,8 @@ export function getFormattedString(date: Date): string {
    const period = getCurrentPeriod(date);
 
    return period.getFormattedString(date);
+}
+
+export function getPeriodsInYear(year: Date): Period[] {
+    return periods.filter(period => (period.startDate.getFullYear() > year.getFullYear() - 1 && period.startDate.getFullYear() < year.getFullYear() + 1));
 }
