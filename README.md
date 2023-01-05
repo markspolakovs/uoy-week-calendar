@@ -6,16 +6,6 @@ It is partly inspired by [kothar/uoy-weekcalendar](https://github.com/kothar/uoy
 
 All commit messages should follow the [Convential Commit](https://cheatography.com/albelop/cheat-sheets/conventional-commits/) specification.
 
-## Features
-
-Status: **Alpha**
-
-- [ ] Provides a iCalendar subscription of the current terms dates
-- [ ] Customizing the calendar if you are a undergraduate, postgraduate or staff member.
-- [ ] Provides an API to get the calendar events yourself
-
-I am to achieve the first two before I declare this production ready.
-
 ## License
 
 MIT Licensed
