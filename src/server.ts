@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import morgan from "morgan";
-import { getCalendar } from "./calendar";
+import {getCalendar} from "./calendar";
 
 export const app = express();
 export const port = process.env.PORT ?? 9000;

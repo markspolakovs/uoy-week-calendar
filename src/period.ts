@@ -256,13 +256,14 @@ export const academicYears: AcademicYear[] = [
     }
 ];
 
+function getWeeksBetween(startDate: Date, endDate: Date): number {
+    return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
+}
+
 export function getAcademicYear(academicYear: AcademicYear): string {
     return `${academicYear.periods[0].startDate.getFullYear()}/${academicYear.periods.slice(-1)[0].startDate.getFullYear()}`
 }
 
-export function getWeeksBetween(startDate: Date, endDate: Date): number {
-    return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
-}
 
 /**
  * Given date, returns which AcademicYear it belongs to.
@@ -272,4 +273,15 @@ export function getCurrentAcademicYear(date: Date): AcademicYear {
     return academicYears.filter(academicYear => (
         (academicYear.periods[0].startDate <= date && academicYear.periods.slice(-1)[0].startDate >= date)
     ))[0];
+}
+
+export function getNextPeriod(currentPeriod: Period, currentAcademicYear: AcademicYear): Period {
+    let academicYearIndex = academicYears.indexOf(currentAcademicYear);
+    let periodIndex = academicYears[academicYearIndex].periods.indexOf(currentPeriod);
+
+    if (periodIndex < academicYears[academicYearIndex].periods.length - 1) {
+        return academicYears[academicYearIndex].periods[periodIndex + 1];
+    } else {
+        return academicYears[academicYearIndex + 1].periods[0];
+    }
 }
