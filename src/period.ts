@@ -263,3 +263,13 @@ export function getAcademicYear(academicYear: AcademicYear): string {
 export function getWeeksBetween(startDate: Date, endDate: Date): number {
     return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
 }
+
+/**
+ * Given date, returns which AcademicYear it belongs to.
+ * @param date
+ */
+export function getCurrentAcademicYear(date: Date): AcademicYear {
+    return academicYears.filter(academicYear => (
+        (academicYear.periods[0].startDate <= date && academicYear.periods.slice(-1)[0].startDate >= date)
+    ))[0];
+}
