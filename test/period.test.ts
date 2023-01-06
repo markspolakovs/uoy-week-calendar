@@ -53,8 +53,8 @@ describe('Period Class Specific Methods', () => {
         let exampleTerm = new Term(dayjs().toDate(), 'Autumn');
 
         expect(exampleTerm.getFormattedString(today.toDate())).toBeDefined();
-        expect(exampleTerm.getFormattedString(today.toDate())).toBe('Autumn Week 1');
-        expect(exampleTerm.getFormattedString(today.add(3, 'weeks').toDate())).toBe('Autumn Week 4');
+        expect(exampleTerm.getFormattedString(today.toDate())).toBe('Autumn Term Week 1');
+        expect(exampleTerm.getFormattedString(today.add(3, 'weeks').toDate())).toBe('Autumn Term Week 4');
     });
 
     it('Holiday', () => {
