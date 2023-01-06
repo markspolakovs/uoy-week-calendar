@@ -1,4 +1,5 @@
-import {academicYears, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "../src/period";
+import {academicYears, getAcademicYear, getCurrentAcademicYear, getNextPeriod, Holiday, Term} from "../src/period";
+import dayjs from "dayjs";
 
 describe('Calendar Testing Suite', () => {
     it('AcademicYear should be an array', () => {
@@ -28,4 +29,23 @@ describe('Calendar Testing Suite (Utility Methods)', () => {
             expect(getAcademicYear(academicYear)).toMatch(/[0-9]{4}\/[0-9]{4}/);
         }
     });
+});
+
+describe('Period Class Specific Methods', () => {
+    it('Term', () => {
+        let today = dayjs();
+
+        let exampleTerm = new Term(dayjs().toDate(), 'Autumn');
+
+        expect(exampleTerm.getFormattedString(today.toDate())).toBeDefined();
+        expect(exampleTerm.getFormattedString(today.toDate())).toBe('Autumn Week 1');
+    });
+
+    it('Holiday', () => {
+        let today = dayjs();
+
+        let exampleHoliday = new Holiday(today.toDate(), 'Test')
+        expect(exampleHoliday).toBeDefined();
+        expect(exampleHoliday.getFormattedString(today.toDate())).toBe('Test Vacation Week 1')
+    })
 });
