@@ -6,6 +6,34 @@ It is partly inspired by [kothar/uoy-weekcalendar](https://github.com/kothar/uoy
 
 All commit messages should follow the [Convential Commit](https://cheatography.com/albelop/cheat-sheets/conventional-commits/) specification.
 
+## Specification
+
+Should produce an iCalendar valid file which complies to the following:
+- Every monday there should be an all day event
+- The event summary should be on the following (replace # with week number, & with week type)
+  - <Autumn/Spring/Summer> Term Week #
+  - <Christmas/Easter/Summer> Vacation Week #
+  - Semester <One/Two> Week # (&)
+
+### Week Type
+
+Moving to semesters each week will be one of the following:
+
+- **f/rf**: Freshers/Refreshers Week - no teaching
+- **1-n**: Teaching and Learning Week
+- **c**: Consolidation
+- **v**: Vacation
+- **rv**: Revision and essay writing weeks - free from contact time and scheduled assessments
+- **ra**: Revision and assessment weeks. Departments will set examinations and end-of-semester assessment deadlines
+- **m**: Marking - free from teaching
+- **o**: Research, admin duties, PGR/PGT supervision, Summer resits, teaching prep, student recruitment activities, vacation. Will be described as Open
+
+The types are dependent on which calendar you subscribe to: undergraduate, postgraduate or staff.
+
+## Notes
+
+The `offset` value is defined as what week number Semester Three would start on if the Easter Holiday wasn't there.
+
 ## License
 
 MIT Licensed
