@@ -267,7 +267,6 @@ export function getAcademicYear(academicYear: AcademicYear): string {
     return `${academicYear.periods[0].startDate.getFullYear()}/${academicYear.periods.slice(-1)[0].startDate.getFullYear()}`
 }
 
-
 /**
  * Given date, returns which AcademicYear it belongs to.
  * @param date
