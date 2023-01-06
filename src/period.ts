@@ -180,9 +180,17 @@ export class SemesterSummerVacation implements Period {
         let weekType = "";
 
         if(calendarType == CalendarType.UNDERGRADUATE) {
-            return `${this.type} Vacation Week ${week}`;
+            if (week == 10 || week == 11) {
+                return `${this.type} Vacation Week ${week} (Resit Period)`;
+            } else {
+                return `${this.type} Vacation Week ${week}`;
+            }
         } else if(calendarType == CalendarType.POSTGRADUATE) {
             weekType = `Teaching Week ${week}`;
+
+            if (week == 10 || week == 11) {
+                weekType += ' (Resist Period)'
+            }
         } else if(calendarType == CalendarType.STAFF) {
             if (week == 1) {
                 weekType = 'Marking Week 3'; // staff term finishes one week into vacation period
