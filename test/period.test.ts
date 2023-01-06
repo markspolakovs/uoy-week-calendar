@@ -1,4 +1,12 @@
-import {academicYears, getAcademicYear, getCurrentAcademicYear, getNextPeriod, Holiday, Term} from "../src/period";
+import {
+    academicYears,
+    getAcademicYear,
+    getCurrentAcademicYear,
+    getNextPeriod,
+    getWeeksBetween,
+    Holiday,
+    Term
+} from "../src/period";
 import dayjs from "dayjs";
 
 describe('Calendar Testing Suite', () => {
@@ -8,6 +16,13 @@ describe('Calendar Testing Suite', () => {
 });
 
 describe('Calendar Testing Suite (Utility Methods)', () => {
+    it('getWeeksBetween', () => {
+       expect(getWeeksBetween(dayjs().toDate(), dayjs().toDate())).toBe(0); //
+       expect(getWeeksBetween(dayjs().toDate(), dayjs().add(3, 'day').toDate())).toBe(0);
+       expect(getWeeksBetween(dayjs().toDate(), dayjs().add(8, 'weeks').toDate())).toBe(8);
+       // expect(getWeeksBetween())
+    });
+
     it('getCurrentAcademicYear', () => {
         expect(getCurrentAcademicYear(new Date())).toBeDefined();
         expect(getCurrentAcademicYear(new Date()).periods).toBeDefined();
