@@ -29,22 +29,16 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
         for (let i = 0; i <= weeks; i++) {
             let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
 
-            console.log(currentDate + " - " + currentPeriod.getFormattedString(currentDate, calendarType));
-
-   //         console.log(`Adding ${currentPeriod.getFormattedString(currentDate)} on ${dayjs(currentDate).format('dddd, MMMM D, YYYY h:mm A')}`)
-
-/*            calendar.createEvent({
+            calendar.createEvent({
                 start: currentDate,
                 end: currentDate,
                 id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
                 allDay: true,
                 summary: currentPeriod.getFormattedString(currentDate, calendarType)
-            });*/
+            });
         }
 
     }
-
-  //  console.log(calendar);
 
     calendar.serve(res);
 }
