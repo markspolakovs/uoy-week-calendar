@@ -9,6 +9,12 @@ type AcademicYear = {
     periods: Period[];
 }
 
+enum CalendarType {
+    UNDERGRADUATE,
+    POSTGRADUATE,
+    STAFF
+}
+
 export class Term implements Period {
     readonly startDate: Date;
     readonly type: string;
