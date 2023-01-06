@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 interface Period {
     readonly startDate: Date;
     readonly type: string;
@@ -258,7 +260,7 @@ export const academicYears: AcademicYear[] = [
 ];
 
 export function getWeeksBetween(startDate: Date, endDate: Date): number {
-    return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
+    return Math.abs(dayjs(endDate).diff(dayjs(startDate), 'weeks'));
 }
 
 export function getAcademicYear(academicYear: AcademicYear): string {
