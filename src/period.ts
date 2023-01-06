@@ -9,7 +9,7 @@ type AcademicYear = {
     periods: Period[];
 }
 
-class Term implements Period {
+export class Term implements Period {
     readonly startDate: Date;
     readonly type: string;
 
@@ -23,7 +23,7 @@ class Term implements Period {
     }
 }
 
-class Holiday implements Period {
+export class Holiday implements Period {
     readonly startDate: Date;
     readonly type: string;
 
@@ -42,7 +42,7 @@ class Holiday implements Period {
 // SemesterOne (Start till Christmas), Christmas, SemesterTwo(Christmas till Easter), Easter, Semester Three(Easter till Summer), Summer Holiday
 // The only thing that moves is Easter, and we can logic around that.
 // Staff also have different calendars than students now
-class SemesterOne implements Period {
+export class SemesterOne implements Period {
     readonly startDate: Date;
     readonly type: string;
 
@@ -71,7 +71,7 @@ class SemesterOne implements Period {
 }
 
 // This is for the period after Christmas but before Easter
-class SemesterTwo implements Period {
+export class SemesterTwo implements Period {
     readonly startDate: Date;
     readonly type: string;
 
@@ -99,7 +99,7 @@ class SemesterTwo implements Period {
 }
 
 // Period after Easter before Summer
-class SemesterThree implements Period {
+export class SemesterThree implements Period {
     readonly startDate: Date;
     readonly type: string;
     private readonly offset: number;
