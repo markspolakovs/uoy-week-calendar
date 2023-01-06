@@ -19,7 +19,7 @@ export class Term implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        return `${this.type} Week ${getWeeksBetween(this.startDate, inputDate)}`;
+        return `${this.type} Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
     }
 }
 
@@ -33,7 +33,7 @@ export class Holiday implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        return `${this.type} Vacation Week ${getWeeksBetween(this.startDate, inputDate)}`;
+        return `${this.type} Vacation Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
     }
 }
 
@@ -52,7 +52,7 @@ export class SemesterOne implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate);
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
 
         let weekType = "";
 
@@ -81,7 +81,7 @@ export class SemesterTwo implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate);
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
         let weekType = "";
 
         if (week == 1) {
@@ -111,7 +111,7 @@ export class SemesterThree implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + this.offset;
+        let week = getWeeksBetween(this.startDate, inputDate) + this.offset + 1;
 
         let weekType = "";
 
@@ -257,8 +257,8 @@ export const academicYears: AcademicYear[] = [
     }
 ];
 
-function getWeeksBetween(startDate: Date, endDate: Date): number {
-    return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)) + 1;
+export function getWeeksBetween(startDate: Date, endDate: Date): number {
+    return Math.floor((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
 }
 
 export function getAcademicYear(academicYear: AcademicYear): string {
