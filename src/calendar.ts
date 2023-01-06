@@ -13,7 +13,7 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
     for(let currentPeriod of academicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
-        let startDate = dayjs(currentPeriod.startDate);
+        let startDate = dayjs(currentPeriod.startDate).day(1);
         let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
 
         let weeks = endDate.diff(startDate, 'weeks');
