@@ -1,6 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { ICalCalendar } from "ical-generator";
+import {NextFunction, Request, Response} from "express";
+import {ICalCalendar} from "ical-generator";
 import {getCurrentAcademicYear, getNextPeriod} from "./period";
+import hash from 'hash.js';
 import dayjs from "dayjs";
 
 const calendar = new ICalCalendar();
@@ -10,10 +11,10 @@ calendar.name("University of York's Week Numbers");
 export async function getCalendar(req: Request, res: Response, next: NextFunction) {
     let academicYear = getCurrentAcademicYear(new Date());
 
-    for(let currentPeriod of academicYear.periods) {
+    for (let currentPeriod of academicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
-        let startDate = dayjs(currentPeriod.startDate).day(1);
+        let startDate = dayjs(currentPeriod.startDate);
         let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
 
         let weeks = endDate.diff(startDate, 'weeks');
@@ -21,17 +22,20 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
         for (let i = 0; i <= weeks; i++) {
             let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
 
-            console.log(`Adding ${currentPeriod.getFormattedString(currentDate)}`)
+            console.log(`Adding ${currentPeriod.getFormattedString(currentDate)} on ${dayjs(currentDate).format('dddd, MMMM D, YYYY h:mm A')}`)
 
             calendar.createEvent({
                 start: currentDate,
                 end: currentDate,
+                id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate)}${currentDate}`).digest('hex'),
                 allDay: true,
                 summary: currentPeriod.getFormattedString(currentDate)
             });
         }
 
     }
+
+    console.log(calendar);
 
     calendar.serve(res);
 }
