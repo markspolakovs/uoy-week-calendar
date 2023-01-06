@@ -268,7 +268,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2024, 11, 9), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2025, 0, 6))),
             new Holiday(new Date(Date.UTC(2025, 3, 7)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2025, 3, 22)), 9),
+            new SemesterThree(new Date(Date.UTC(2025, 3, 22)), 14),
             new SemesterSummerVacation(new Date(Date.UTC(2025, 5, 9))),
         ]
     },
@@ -279,7 +279,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2025, 11, 9), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2026, 0, 8))),
             new Holiday(new Date(Date.UTC(2026, 2, 25)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2026, 3, 8)), 8),
+            new SemesterThree(new Date(Date.UTC(2026, 3, 8)), 13),
             new SemesterSummerVacation(new Date(Date.UTC(2026, 5, 10))),
         ]
     },
@@ -290,7 +290,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2026, 11, 21), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2027, 0, 11))),
             new Holiday(new Date(Date.UTC(2027, 2, 22)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2027, 3, 13)), 6),
+            new SemesterThree(new Date(Date.UTC(2027, 3, 13)), 11),
             new SemesterSummerVacation(new Date(Date.UTC(2027, 5, 14))),
         ]
     },
@@ -301,7 +301,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2027, 11, 20), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2028, 0, 10))),
             new Holiday(new Date(Date.UTC(2028, 3, 10)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2028, 3, 24)), 9),
+            new SemesterThree(new Date(Date.UTC(2028, 3, 24)), 14),
             new SemesterSummerVacation(new Date(Date.UTC(2028, 5, 12))),
         ]
     },
@@ -312,7 +312,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2028, 11, 18), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2029, 0, 8))),
             new Holiday(new Date(Date.UTC(2029, 2, 26)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2029, 3, 9)), 7),
+            new SemesterThree(new Date(Date.UTC(2029, 3, 9)), 12),
             new SemesterSummerVacation(new Date(Date.UTC(2029, 5, 14))),
         ]
     },
@@ -323,7 +323,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(2029, 11, 17), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2030, 0, 7))),
             new Holiday(new Date(Date.UTC(2030, 3, 8)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2030, 3, 22)), 9),
+            new SemesterThree(new Date(Date.UTC(2030, 3, 22)), 14),
             new SemesterSummerVacation(new Date(Date.UTC(2030, 5, 10))),
         ]
     }
