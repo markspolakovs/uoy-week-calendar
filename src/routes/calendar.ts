@@ -9,7 +9,7 @@ const calendar = new ICalCalendar();
 calendar.name("University of York's Week Numbers");
 
 export async function getCalendar(req: Request, res: Response, next: NextFunction) {
-    let academicYear = getCurrentAcademicYear(dayjs().add(1, 'year').toDate());
+    let academicYear = getCurrentAcademicYear(dayjs().toDate());
 
     let type = req.query.type ?? 'undergraduate';
     let calendarType: CalendarType = CalendarType.UNDERGRADUATE;
