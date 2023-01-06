@@ -54,6 +54,7 @@ describe('Period Class Specific Methods', () => {
 
         expect(exampleTerm.getFormattedString(today.toDate())).toBeDefined();
         expect(exampleTerm.getFormattedString(today.toDate())).toBe('Autumn Week 1');
+        expect(exampleTerm.getFormattedString(today.add(3, 'weeks').toDate())).toBe('Autumn Week 4');
     });
 
     it('Holiday', () => {
