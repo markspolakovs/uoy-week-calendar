@@ -67,7 +67,7 @@ export class SemesterOne implements Period {
             if (week == 1) {
                 weekType = `Freshers`
             } else if (week >= 2 && week <= 6) {
-                weekType = `Week ${week - 1}`
+                weekType = `Teaching Week ${week - 1}`
             } else if (week == 7) {
                 weekType = 'Consolidation Week'
             } else if (week >= 8 && week <= 13) {
@@ -75,9 +75,9 @@ export class SemesterOne implements Period {
             }
         } else if(calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                weekType = `Open`
+                weekType = `Open Week`
             } else if (week >= 2 && week <= 6) {
-                weekType = `Week ${week - 1}`
+                weekType = `Teaching Week ${week - 1}`
             } else if (week == 7) {
                 weekType = 'Open Week'
             } else if (week >= 8 && week <= 13) {
