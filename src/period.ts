@@ -4,17 +4,17 @@ interface Period {
     readonly startDate: Date;
     readonly type: string;
 
-    getFormattedString(inputDate: Date): string;
+    getFormattedString(inputDate: Date, calendarType?: CalendarType): string;
 }
 
 type AcademicYear = {
     periods: Period[];
 }
 
-enum CalendarType {
-    UNDERGRADUATE,
-    POSTGRADUATE,
-    STAFF
+export enum CalendarType {
+    UNDERGRADUATE = 'undergraduate',
+    POSTGRADUATE = 'postgraduate',
+    STAFF = 'staff'
 }
 
 export class Term implements Period {
@@ -27,7 +27,7 @@ export class Term implements Period {
     }
 
     public getFormattedString(inputDate: Date): string {
-        return `${this.type} Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
+        return `${this.type} Term Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
     }
 }
 
@@ -59,22 +59,34 @@ export class SemesterOne implements Period {
         this.type = "Semester One";
     }
 
-    public getFormattedString(inputDate: Date): string {
+    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-
         let weekType = "";
 
-        if (week == 1) {
-            weekType = `Freshers`
-        } else if (week >= 2 && week <= 6) {
-            weekType = `Week ${week - 1}`
-        } else if (week == 7) {
-            weekType = 'Consolidation Week'
-        } else if (week >= 8 && week <= 13) {
-            weekType = `Week ${week - 2}`
+        if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
+            if (week == 1) {
+                weekType = `Freshers`
+            } else if (week >= 2 && week <= 6) {
+                weekType = `Week ${week - 1}`
+            } else if (week == 7) {
+                weekType = 'Consolidation Week'
+            } else if (week >= 8 && week <= 13) {
+                weekType = `Teaching Week ${week - 2}`
+            }
+        } else if(calendarType == CalendarType.STAFF) {
+            if (week == 1) {
+                weekType = `Open`
+            } else if (week >= 2 && week <= 6) {
+                weekType = `Week ${week - 1}`
+            } else if (week == 7) {
+                weekType = 'Open Week'
+            } else if (week >= 8 && week <= 13) {
+                weekType = `Teaching Week ${week - 2}`
+            }
+
         }
 
-        return `${this.type} ${weekType}`
+        return `${this.type} Week ${week} (${weekType})`
     }
 }
 
@@ -88,21 +100,31 @@ export class SemesterTwo implements Period {
         this.type = "Semester Two";
     }
 
-    public getFormattedString(inputDate: Date): string {
+    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
         let weekType = "";
 
-        if (week == 1) {
-            weekType = 'Semester One Revision Week'
-        } else if (week >= 2 && week <= 4) {
-            weekType = `Semester One Assessment Week ${week}`
-        } else if (week == 5) {
-            weekType = 'Semester Two Refreshers Week'
-        } else if (week >= 6) {
-            weekType = `Semester Two Week ${week - 4}`
+        if(calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
+            if (week == 1) {
+                weekType = 'Revision Week'
+            } else if (week >= 2 && week <= 4) {
+                weekType = `Assessment Week ${week - 1}`
+            } else if (week == 5) {
+                weekType = 'Refreshers Week'
+            } else if (week >= 6) {
+                weekType = `Teaching Week ${week - 5}`
+            }
+        } else if(calendarType == CalendarType.STAFF) {
+            if (week == 1 || week == 2) {
+                weekType = `Open Week ${week}`
+            } else if (week >= 3 && week <= 5) {
+                weekType = `Marking Week ${week - 2}`
+            } else if (week >= 6) {
+                weekType = `Teaching Week ${week - 5}`
+            }
         }
 
-        return weekType;
+        return `${this.type} Week ${week} (${weekType})`
     }
 }
 
@@ -118,20 +140,62 @@ export class SemesterThree implements Period {
         this.type = "Semester Two";
     }
 
-    public getFormattedString(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + this.offset + 1;
-
+    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + this.offset; // No requirement to add one as we already did in the offset
         let weekType = "";
 
-        if (week <= 12) {
-            weekType = `Week ${week - 1}`
-        } else if (week == 13) {
-            weekType = 'Revision Week'
-        } else if (week <= 16) {
-            weekType = `Assessment Week ${week - 13}`
+        if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
+            if (week >= 12 && week <= 16) {
+                weekType = `Teaching Week ${week - 5}`
+            } else if (week == 17) {
+                weekType = 'Revision Week'
+            } else if (week <= 20) {
+                weekType = `Assessment Week ${week - 17}`
+            }
+        } else if(calendarType == CalendarType.STAFF) {
+            if (week >= 12 && week <= 16) {
+                weekType = `Teaching Week ${week - 5}`
+            } else if (week == 17 || week == 18) {
+                weekType = `Open Week ${week - 16}`
+            } else if (week <= 20) {
+                weekType = `Marking Week ${week - 18}`
+            }
         }
 
-        return `${this.type} ${weekType}`
+        return `${this.type} Week ${week} (${weekType})`
+    }
+}
+
+export class SemesterSummerVacation implements Period {
+    readonly startDate: Date;
+    readonly type: string;
+
+    constructor(inputDate: Date) {
+        this.startDate = inputDate;
+        this.type = 'Summer';
+    }
+
+    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let weekType = "";
+
+        if(calendarType == CalendarType.UNDERGRADUATE) {
+            return `${this.type} Vacation Week ${week}`;
+        } else if(calendarType == CalendarType.POSTGRADUATE) {
+            weekType = `Teaching Week ${week}`;
+        } else if(calendarType == CalendarType.STAFF) {
+            if (week == 1) {
+                weekType = 'Marking Week 3'; // staff term finishes one week into vacation period
+            } else {
+                weekType = `Open Week ${week - 1}`
+
+                if (week == 4) {
+                    weekType += ' / Board of Examiners'
+                }
+            }
+        }
+
+        return `${this.type} Vacation Week ${week} (${weekType})`
     }
 }
 
@@ -193,8 +257,8 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(Date.UTC(2023, 11, 18)), "Christmas"),
             new SemesterTwo(new Date(Date.UTC(2024, 0, 8))),
             new Holiday(new Date(Date.UTC(2024, 2, 25)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2024, 3, 8)), 7),
-            new Holiday(new Date(Date.UTC(2024, 5, 10)), "Summer"),
+            new SemesterThree(new Date(Date.UTC(2024, 3, 8)), 12),
+            new SemesterSummerVacation(new Date(Date.UTC(2024, 5, 10))),
         ]
     },
     {
@@ -205,7 +269,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2025, 0, 6))),
             new Holiday(new Date(Date.UTC(2025, 3, 7)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2025, 3, 22)), 9),
-            new Holiday(new Date(Date.UTC(2025, 5, 9)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2025, 5, 9))),
         ]
     },
     {
@@ -216,7 +280,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2026, 0, 8))),
             new Holiday(new Date(Date.UTC(2026, 2, 25)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2026, 3, 8)), 8),
-            new Holiday(new Date(Date.UTC(2026, 5, 10)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2026, 5, 10))),
         ]
     },
     {
@@ -227,7 +291,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2027, 0, 11))),
             new Holiday(new Date(Date.UTC(2027, 2, 22)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2027, 3, 13)), 6),
-            new Holiday(new Date(Date.UTC(2027, 5, 14)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2027, 5, 14))),
         ]
     },
     {
@@ -238,7 +302,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2028, 0, 10))),
             new Holiday(new Date(Date.UTC(2028, 3, 10)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2028, 3, 24)), 9),
-            new Holiday(new Date(Date.UTC(2028, 5, 12)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2028, 5, 12))),
         ]
     },
     {
@@ -249,7 +313,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2029, 0, 8))),
             new Holiday(new Date(Date.UTC(2029, 2, 26)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2029, 3, 9)), 7),
-            new Holiday(new Date(Date.UTC(2029, 5, 14)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2029, 5, 14))),
         ]
     },
     {
@@ -260,7 +324,7 @@ export const academicYears: AcademicYear[] = [
             new SemesterTwo(new Date(Date.UTC(2030, 0, 7))),
             new Holiday(new Date(Date.UTC(2030, 3, 8)), "Easter"),
             new SemesterThree(new Date(Date.UTC(2030, 3, 22)), 9),
-            new Holiday(new Date(Date.UTC(2030, 5, 10)), "Summer"),
+            new SemesterSummerVacation(new Date(Date.UTC(2030, 5, 10))),
         ]
     }
 ];
