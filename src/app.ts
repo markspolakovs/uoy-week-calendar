@@ -7,6 +7,7 @@ export const port = process.env.PORT ?? 9000;
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use('/', express.static('public'))
 
 app.use('/', router);
 
