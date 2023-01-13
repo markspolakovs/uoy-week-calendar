@@ -21,13 +21,15 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
     for (let currentPeriod of academicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
-        let startDate = dayjs(currentPeriod.startDate);
+        let startDate = dayjs(currentPeriod.startDate).add(3, 'hours');
         let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
 
         let weeks = endDate.diff(startDate, 'weeks');
 
         for (let i = 0; i <= weeks; i++) {
             let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
+
+            console.log(`${currentDate} - ${currentPeriod.getFormattedString(currentDate, CalendarType.UNDERGRADUATE)}`)
 
             calendar.createEvent({
                 start: currentDate,
