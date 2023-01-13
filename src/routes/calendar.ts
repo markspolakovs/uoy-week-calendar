@@ -9,7 +9,7 @@ const calendar = new ICalCalendar();
 calendar.name("University of York's Week Numbers");
 
 export async function getCalendar(req: Request, res: Response, next: NextFunction) {
-    let academicYear = getCurrentAcademicYear(dayjs().toDate());
+    let academicYear = getCurrentAcademicYear(dayjs().add(1, 'year').toDate());
 
     let type = req.query.type ?? 'undergraduate';
     let calendarType: CalendarType = CalendarType.UNDERGRADUATE;
@@ -29,12 +29,10 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
         for (let i = 0; i <= weeks; i++) {
             let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
 
-            console.log(`${currentDate} - ${currentPeriod.getFormattedString(currentDate, CalendarType.UNDERGRADUATE)}`)
-
             calendar.createEvent({
                 start: currentDate,
                 end: currentDate,
-                id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
+                //id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
                 allDay: true,
                 summary: currentPeriod.getFormattedString(currentDate, calendarType)
             });

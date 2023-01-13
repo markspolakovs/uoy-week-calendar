@@ -56,7 +56,7 @@ export class SemesterOne implements Period {
 
     constructor(startDate: Date) {
         this.startDate = startDate;
-        this.type = "Semester One";
+        this.type = "Semester 1";
     }
 
     public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
@@ -85,6 +85,7 @@ export class SemesterOne implements Period {
             }
 
         }
+        console.log(`${inputDate} ${calendarType} ${this.type} ${week} ${weekType}`)
 
         return `${this.type} Week ${week} (${weekType})`
     }
@@ -97,7 +98,7 @@ export class SemesterTwo implements Period {
 
     constructor(startDate: Date) {
         this.startDate = startDate;
-        this.type = "Semester Two";
+        this.type = "Semester 2";
     }
 
     public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
@@ -137,7 +138,7 @@ export class SemesterThree implements Period {
     constructor(startDate: Date, offset: number) {
         this.startDate = startDate;
         this.offset = offset;
-        this.type = "Semester Two";
+        this.type = "Semester 2"; // lies
     }
 
     public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
