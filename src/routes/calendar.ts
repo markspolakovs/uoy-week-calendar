@@ -21,7 +21,7 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
     for (let currentPeriod of academicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
-        let startDate = dayjs(currentPeriod.startDate).add(3, 'hours');
+        let startDate = dayjs(currentPeriod.startDate).add(3, 'hours'); // Really hacky fix for preventing events from appearing on the previous day due to BST
         let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
 
         let weeks = endDate.diff(startDate, 'weeks');
