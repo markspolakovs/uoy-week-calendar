@@ -5,13 +5,18 @@ import {
     getNextPeriod,
     getWeeksBetween,
     Holiday,
-    Term
+    Term,
 } from "../src/period";
+
 import dayjs from "dayjs";
 
 describe('Calendar Testing Suite', () => {
     it('AcademicYear should be an array', () => {
         expect(academicYears).toBeDefined();
+    });
+
+    it('AcademicYear should contain at least one element', () => {
+        expect(academicYears.length).toBeGreaterThanOrEqual(1);
     });
 });
 
@@ -64,4 +69,8 @@ describe('Period Class Specific Methods', () => {
         expect(exampleHoliday).toBeDefined();
         expect(exampleHoliday.getFormattedString(today.toDate())).toBe('Test Vacation Week 1')
     })
+});
+
+describe('SemesterOne getFormattedString', function () {
+    
 });
