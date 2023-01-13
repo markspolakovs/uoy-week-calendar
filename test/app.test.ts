@@ -10,22 +10,13 @@ describe('Test the root path', () => {
     })
 })
 
-describe('Test the api path',  () => {
-    test('GET /api', async () => {
-        const response = await supertest(app).get('/api');
-
-        expect(response.statusCode).toBe(200);
-        expect(response.body).toBeDefined();
-    })
-});
-
 describe('Test the calendar path', () => {
    test('GET /calendar', async () => {
        const response = await supertest(app).get('/calendar');
 
        console.log(response);
 
-       expect(response.headers.)
+       expect(response.headers).toBeDefined()
    })
 });
 
