@@ -2,11 +2,11 @@
   "name": "uoy-week-calendar",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "src/server.ts",
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
-    "dev": "nodemon src/app.ts"
+    "dev": "nodemon src/server.ts"
   },
   "repository": {
     "type": "git",
