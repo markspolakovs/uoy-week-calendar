@@ -1,11 +1,11 @@
 import express from "express";
-import router from "./routes/router";
+import router from "./router";
 import helmet from "helmet";
 
 export const app = express();
 
+// Middleware
 app.use(helmet())
-app.use(express.json());
-app.use('/', express.static('public'))
 
-app.use('/', router);
+// Routes
+app.use(router);
