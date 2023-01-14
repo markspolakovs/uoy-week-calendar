@@ -1,6 +1,5 @@
 import express, {Router} from "express";
 import {getCalendar} from "./routes/calendar";
-import getWeek from "./routes/api/week";
 import getPong from "./routes/api/pong";
 
 const router = Router();

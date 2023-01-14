@@ -25,7 +25,6 @@ describe('Calendar Testing Suite (Utility Methods)', () => {
        expect(getWeeksBetween(dayjs().toDate(), dayjs().toDate())).toBe(0); //
        expect(getWeeksBetween(dayjs().toDate(), dayjs().add(3, 'day').toDate())).toBe(0);
        expect(getWeeksBetween(dayjs().toDate(), dayjs().add(8, 'weeks').toDate())).toBe(8);
-       // expect(getWeeksBetween())
     });
 
     it('getCurrentAcademicYear', () => {
@@ -72,5 +71,5 @@ describe('Period Class Specific Methods', () => {
 });
 
 describe('SemesterOne getFormattedString', function () {
-    
+
 });

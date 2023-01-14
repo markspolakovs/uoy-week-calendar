@@ -13,9 +13,6 @@ describe('Test the root path', () => {
 describe('Test the calendar path', () => {
    test('GET /calendar', async () => {
        const response = await supertest(app).get('/calendar');
-
-       console.log(response);
-
        expect(response.headers).toBeDefined()
    })
 });
