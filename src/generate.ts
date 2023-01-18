@@ -15,6 +15,7 @@ for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE,
     const calendar = new ICalCalendar();
 
     calendar.name(`University of York's Week Numbers (${getAcademicYear(currentAcademicYear)})`);
+    calendar.description(`University of York's Week Numbers (${getAcademicYear(currentAcademicYear)})`);
 
     for (let currentPeriod of currentAcademicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, currentAcademicYear);
