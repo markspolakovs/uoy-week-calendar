@@ -32,7 +32,7 @@ export async function getCalendar(req: Request, res: Response, next: NextFunctio
             calendar.createEvent({
                 start: currentDate,
                 end: currentDate,
-                //id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
+                id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
                 allDay: true,
                 summary: currentPeriod.getFormattedString(currentDate, calendarType)
             });
