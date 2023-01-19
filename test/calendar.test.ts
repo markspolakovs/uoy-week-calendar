@@ -1,10 +1,12 @@
 import {
     academicYears,
+    CalendarType,
     getAcademicYear,
     getCurrentAcademicYear,
     getNextPeriod,
     getWeeksBetween,
     Holiday,
+    SemesterOne,
     Term,
 } from "../src/calendar";
 
@@ -70,6 +72,22 @@ describe('Period Class Specific Methods', () => {
     })
 });
 
-describe('SemesterOne getFormattedString', function () {
+describe('Semester One', function () {
+    let today = dayjs();
 
+    let semesterOne = new SemesterOne(today.toDate());
+
+    it('should return Semester 1 as type', () => {
+        expect(semesterOne.type).toBe('Semester 1');
+    });
+
+    it('should return the same start date', () => {
+        expect(semesterOne.startDate).toEqual(today.toDate());
+    });
+
+    it('week 1 should be correct type', () => {
+        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.UNDERGRADUATE)).toBe('Semester 1 Week 1 (Freshers)');
+        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.POSTGRADUATE)).toBe('Semester 1 Week 1 (Freshers)');
+        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.STAFF)).toBe('Semester 1 Week 1 (Open Week)');
+    })
 });
