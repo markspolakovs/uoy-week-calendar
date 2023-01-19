@@ -83,9 +83,7 @@ export class SemesterOne implements Period {
             } else if (week >= 8 && week <= 13) {
                 weekType = `Teaching Week ${week - 2}`
             }
-
         }
-        console.log(`${inputDate} ${calendarType} ${this.type} ${week} ${weekType}`)
 
         return `${this.type} Week ${week} (${weekType})`
     }
