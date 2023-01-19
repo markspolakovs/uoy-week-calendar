@@ -48,7 +48,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install packages
-        run: npm install
+        run: npm install --omit=dev
       - name: Generate calendar
         run: npm run generate
       - name: Upload artifacts
