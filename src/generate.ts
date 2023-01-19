@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {CalendarType, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./period";
+import {CalendarType, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./calendar";
 import {ICalCalendar} from "ical-generator";
 import hash from "hash.js";
 import * as fs from "fs";

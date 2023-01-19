@@ -6,7 +6,7 @@ import {
     getWeeksBetween,
     Holiday,
     Term,
-} from "../src/period";
+} from "../src/calendar";
 
 import dayjs from "dayjs";
 
