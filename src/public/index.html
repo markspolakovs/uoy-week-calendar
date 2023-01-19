@@ -1,41 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UoY Week Numbers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="icon" type="image/x-icon" href="https://www.york.ac.uk/static/stable/img/favicon.ico">
-    <link rel="shortcut icon" href="https://www.york.ac.uk/static/stable/img/favicon.ico">
-    <meta name="description" content="University of York Week Numbers">
-</head>
-<body>
-    <div class="container m-2">
-        <h1>University of York's Week Numbers</h1>
-        <p class="lead">This page provides an iCalendar (RFC 2445) format of the University of York's week numbers, according to the <a href="https://www.york.ac.uk/about/term-dates/" target="_blank">term dates</a>.</p>
-        <p>It is compatible with most calendar software, the program provides three different calendars depending on your circumstance. Simply adding one of the following URL to your Calendar software:</p>
-        <ul>
-            <li><b>Undergraduate</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/undergraduate.ics</code></li>
-            <li><b>Postgraduate</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/postgraduate.ics</code></li>
-            <li><b>Staff</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/staff.ics</code></li>
-        </ul>
-        <p>The program should support up to the academic year 2029/2030; and is easily updatable past that. However, it will only generate the current academic year's week numbers.</p>
-        <h2>Format</h2>
-        <p>From September 2023; the events in your calendar with be formatted as either: <b>Semester 1/2 Week # (Week Type)</b></p>
-        <p>From September 2023; each week can be described as one of the following types:</p>
-        <ul>
-            <li><b>f/rf</b>: Freshers / Refreshers Week - no teaching</li>
-            <li><b>1 - 11</b>: Teaching and Learning Week</li>
-            <li><b>c</b>: Consolidation</li>
-            <li><b>rv</b>: Revision and essay writing weeks - free from contact time and scheduled assessment</li>
-            <li><b>ra</b>: Revision and assessment weeks. Departments will set examinations and end of semester assessment deadlines</li>
-            <li><b>m</b>: Marking - free from teaching</li>
-            <li><b>o</b>: Research, admin duties, PGR/PGT supervision, Summer resits, teaching prep, student recruitment activities, vacation</li>
-        </ul>
-        <p>All this data can be found in this <a href="https://docs.google.com/spreadsheets/d/1eJh5MMKvYYo0bjGf5IekGv-TGZrouPLa7y55KBcvCPI/edit?usp=sharing" target="_blank">spreadsheet</a>.</p>
-        <h2>Source Code</h2>
-        <p>The source code behind this project was originally developed by Christopher Nethercott, and is available on <a href="https://github.com/chriscn/uoy-week-calendar">GitHub</a>.</p>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-</body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UoY Week Numbers</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="icon" type="image/x-icon" href="https://www.york.ac.uk/static/stable/img/favicon.ico">
+        <link rel="shortcut icon" href="https://www.york.ac.uk/static/stable/img/favicon.ico">
+        <meta name="description" content="University of York Week Numbers">
+    </head>
+    <body>
+        <div class="container m-2">
+            <h1>University of York's Week Numbers</h1>
+            <p class="lead">This page provides an iCalendar (RFC 2445) format of the University of York's week numbers, according to the <a href="https://www.york.ac.uk/about/term-dates/" target="_blank">term dates</a>.</p>
+            <p>It is compatible with most calendar software, the program provides three different calendars depending on your circumstance. Simply adding one of the following URL to your Calendar software:</p>
+            <ul>
+                <li><b>Undergraduate</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/undergraduate.ics</code></li>
+                <li><b>Postgraduate</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/postgraduate.ics</code></li>
+                <li><b>Staff</b> - <code>https://chriscn.github.io/uoy-week-calendar/calendar/staff.ics</code></li>
+            </ul>
+            <p>The program should support up to the academic year 2029/2030; and is easily updatable past that. However, it will only generate the current academic year's week numbers.</p>
+            <h2>Format</h2>
+            <p>From September 2023; each week can be described as one of the following types:</p>
+            <ul>
+                <li><b>f/rf</b>: Freshers / Refreshers Week - no teaching</li>
+                <li><b>1 - 11</b>: Teaching and Learning Week</li>
+                <li><b>c</b>: Consolidation</li>
+                <li><b>rv</b>: Revision and essay writing weeks - free from contact time and scheduled assessment</li>
+                <li><b>ra</b>: Revision and assessment weeks. Departments will set examinations and end of semester assessment deadlines</li>
+                <li><b>m</b>: Marking - free from teaching</li>
+                <li><b>o</b>: Research, admin duties, PGR/PGT supervision, Summer resits, teaching prep, student recruitment activities, vacation</li>
+            </ul>
+            <p>All this data can be found in this <a href="https://docs.google.com/spreadsheets/d/1eJh5MMKvYYo0bjGf5IekGv-TGZrouPLa7y55KBcvCPI/edit?usp=sharing" target="_blank">spreadsheet</a>.</p>
+            <h2>Source Code</h2>
+            <p>The source code behind this project was originally developed by Christopher Nethercott, and is available on <a href="https://github.com/chriscn/uoy-week-calendar">GitHub</a>.</p>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
 </html>
