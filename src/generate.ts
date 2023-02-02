@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import {CalendarType, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./calendar";
-import {ICalCalendar} from "ical-generator";
+import {ICalCalendar, ICalEventBusyStatus} from "ical-generator";
 import hash from "hash.js";
 import * as fs from "fs";
 
@@ -33,6 +33,7 @@ for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE,
                 end: currentDate,
                 id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
                 allDay: true,
+                busystatus: ICalEventBusyStatus.FREE,
                 summary: currentPeriod.getFormattedString(currentDate, calendarType)
             })
         }
