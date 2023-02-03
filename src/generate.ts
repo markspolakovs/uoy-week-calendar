@@ -14,8 +14,8 @@ if (!fs.existsSync('./src/public/calendar')) {
 for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE, CalendarType.STAFF]) {
     const calendar = new ICalCalendar();
 
-    calendar.name(`University of York's Week Numbers (${getAcademicYear(currentAcademicYear)})`);
-    calendar.description(`University of York's Week Numbers (${getAcademicYear(currentAcademicYear)})`);
+    calendar.name(`University of York's Week Numbers`);
+    calendar.description(`University of York's Week Numbers`);
 
     for (let currentPeriod of currentAcademicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, currentAcademicYear);
