@@ -24,6 +24,7 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   test:
+    name: Test the application
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -39,6 +40,7 @@ jobs:
       - name: Run tests
         run: npm run test
   build:
+    name: Build the application
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -55,6 +57,7 @@ jobs:
           name: public-files
           path: './src/public'
   deploy:
+    name: Deploy the application
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
