@@ -11,11 +11,17 @@ if (!fs.existsSync('./src/public/calendar')) {
     fs.mkdirSync('./src/public/calendar', { recursive: true });
 }
 
+function capitaliseFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE, CalendarType.STAFF]) {
     const calendar = new ICalCalendar();
 
-    calendar.name(`University of York's Week Numbers`);
-    calendar.description(`University of York's Week Numbers`);
+    let name = `University of York's Week Number (${capitaliseFirstLetter(calendarType)})`
+
+    calendar.name(name);
+    calendar.description(name);
 
     for (let currentPeriod of currentAcademicYear.periods) {
         let nextPeriod = getNextPeriod(currentPeriod, currentAcademicYear);
