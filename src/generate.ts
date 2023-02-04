@@ -18,7 +18,7 @@ function capitaliseFirstLetter(str: string): string {
 for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE, CalendarType.STAFF]) {
     const calendar = new ICalCalendar();
 
-    let name = `University of York's Week Number (${capitaliseFirstLetter(calendarType)})`
+    let name = `University of York's Week Numbers (${capitaliseFirstLetter(calendarType)})`
 
     calendar.name(name);
     calendar.description(name);
