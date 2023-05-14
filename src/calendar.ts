@@ -4,7 +4,8 @@ interface Period {
     readonly startDate: Date;
     readonly type: string;
 
-    getFormattedString(inputDate: Date, calendarType?: CalendarType): string;
+    getWeekName(inputDate: Date): string;
+    getWeekDescription(inputDate: Date, calendarType: CalendarType): string;
 }
 
 type AcademicYear = {
@@ -26,8 +27,12 @@ export class Term implements Period {
         this.type = type;
     }
 
-    public getFormattedString(inputDate: Date): string {
+    public getWeekName(inputDate: Date): string {
         return `${this.type} Term Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
+    }
+
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        return "";
     }
 }
 
@@ -40,8 +45,12 @@ export class Holiday implements Period {
         this.type = type;
     }
 
-    public getFormattedString(inputDate: Date): string {
+    public getWeekName(inputDate: Date): string {
         return `${this.type} Vacation Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
+    }
+
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        return "";
     }
 }
 
@@ -59,33 +68,38 @@ export class SemesterOne implements Period {
         this.type = "Semester 1";
     }
 
-    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+    public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let weekType = "";
+        return `${this.type} Week ${week}`
+    }
+
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let description = "";
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                weekType = `Freshers`
+                description = `Freshers`
             } else if (week >= 2 && week <= 6) {
-                weekType = `Teaching Week ${week - 1}`
+                description = `Teaching Week ${week - 1}}`
             } else if (week == 7) {
-                weekType = 'Consolidation Week'
+                description = 'Consolidation Week'
             } else if (week >= 8 && week <= 13) {
-                weekType = `Teaching Week ${week - 2}`
+                description = `Teaching Week ${week - 2}`
             }
         } else if(calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                weekType = `Open Week`
+                description = `Open Week`
             } else if (week >= 2 && week <= 6) {
-                weekType = `Teaching Week ${week - 1}`
+                description = `Teaching Week ${week - 1}}`
             } else if (week == 7) {
-                weekType = 'Open Week'
+                description = 'Open Week'
             } else if (week >= 8 && week <= 13) {
-                weekType = `Teaching Week ${week - 2}`
+                description = `Teaching Week ${week - 2}`
             }
         }
 
-        return `${this.type} Week ${week} (${weekType})`
+        return description;
     }
 }
 
@@ -99,31 +113,36 @@ export class SemesterTwo implements Period {
         this.type = "Semester 2";
     }
 
-    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+    public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let weekType = "";
+        return `${this.type} Week ${week}`
+    }
 
-        if(calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let description = "";
+
+        if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                weekType = 'Revision Week'
+                description = 'Revision Week';
             } else if (week >= 2 && week <= 4) {
-                weekType = `Assessment Week ${week - 1}`
+                description = `Assessment Week ${week - 1}`
             } else if (week == 5) {
-                weekType = 'Refreshers Week'
+                description = 'Refreshers Week'
             } else if (week >= 6) {
-                weekType = `Teaching Week ${week - 5}`
+                description = `Teaching Week ${week - 5}`
             }
         } else if(calendarType == CalendarType.STAFF) {
             if (week == 1 || week == 2) {
-                weekType = `Open Week ${week}`
+                description = `Open Week ${week}`
             } else if (week >= 3 && week <= 5) {
-                weekType = `Marking Week ${week - 2}`
+                description = `Marking Week ${week - 2}`
             } else if (week >= 6) {
-                weekType = `Teaching Week ${week - 5}`
+                description = `Teaching Week ${week - 5}`
             }
         }
 
-        return `${this.type} Week ${week} (${weekType})`
+        return description;
     }
 }
 
@@ -139,29 +158,34 @@ export class SemesterThree implements Period {
         this.type = "Semester 2"; // lies
     }
 
-    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+    public getWeekName(inputDate: Date): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        return `${this.type} Week ${week}`
+    }
+
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + this.offset; // No requirement to add one as we already did in the offset
-        let weekType = "";
+        let description = "";
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week >= 12 && week <= 16) {
-                weekType = `Teaching Week ${week - 5}`
+                description = `Teaching Week ${week - 5}`
             } else if (week == 17) {
-                weekType = 'Revision Week'
+                description = 'Revision Week'
             } else if (week <= 20) {
-                weekType = `Assessment Week ${week - 17}`
+                description = `Assessment Week ${week - 17}`
             }
-        } else if(calendarType == CalendarType.STAFF) {
+        } else if (calendarType == CalendarType.STAFF) {
             if (week >= 12 && week <= 16) {
-                weekType = `Teaching Week ${week - 5}`
+                description = `Teaching Week ${week - 5}`
             } else if (week == 17 || week == 18) {
-                weekType = `Open Week ${week - 16}`
+                description = `Open Week ${week - 16}`
             } else if (week <= 20) {
-                weekType = `Marking Week ${week - 18}`
+                description = `Marking Week ${week - 18}`
             }
         }
 
-        return `${this.type} Week ${week} (${weekType})`
+        return description;
     }
 }
 
@@ -174,35 +198,38 @@ export class SemesterSummerVacation implements Period {
         this.type = 'Summer';
     }
 
-    public getFormattedString(inputDate: Date, calendarType: CalendarType): string {
+    public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let weekType = "";
+        return `${this.type} Vacation Week ${week}`
+    }
 
-        if(calendarType == CalendarType.UNDERGRADUATE) {
+    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let description = "";
+
+        if (calendarType == CalendarType.UNDERGRADUATE) {
             if (week == 10 || week == 11) {
-                return `${this.type} Vacation Week ${week} (Resit Period)`;
-            } else {
-                return `${this.type} Vacation Week ${week}`;
+                description = `Resit Period`;
             }
-        } else if(calendarType == CalendarType.POSTGRADUATE) {
-            weekType = `Teaching Week ${week}`;
+        } else if (calendarType == CalendarType.POSTGRADUATE) {
+            description = `Teaching Week ${week}`;
 
             if (week == 10 || week == 11) {
-                weekType += ' (Resist Period)'
+                description += ' (Resist Period)'
             }
-        } else if(calendarType == CalendarType.STAFF) {
+        } else if (calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                weekType = 'Marking Week 3'; // staff term finishes one week into vacation period
+                description = 'Marking Week 3'; // staff term finishes one week into vacation period
             } else {
-                weekType = `Open Week ${week - 1}`
+                description = `Open Week ${week - 1}`
 
                 if (week == 4) {
-                    weekType += ' / Board of Examiners'
+                    description += ' / Board of Examiners'
                 }
             }
         }
 
-        return `${this.type} Vacation Week ${week} (${weekType})`
+        return description;
     }
 }
 

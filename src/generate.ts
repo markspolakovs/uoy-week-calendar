@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import {CalendarType, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./calendar";
+import {CalendarType, academicYears, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./calendar";
 import {ICalCalendar, ICalEventBusyStatus, ICalEventTransparency} from "ical-generator";
 import hash from "hash.js";
 import * as fs from "fs";
@@ -29,29 +29,32 @@ for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE,
     calendar.name(name);
     calendar.description(name);
 
-    for (let currentPeriod of currentAcademicYear.periods) {
-        let nextPeriod = getNextPeriod(currentPeriod, currentAcademicYear);
+    for (let academicYear of academicYears.slice(0, academicYears.length - 1)) {
+        for (let currentPeriod of academicYear.periods) {
+            let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
-        let startDate = dayjs(currentPeriod.startDate).add(3, 'hours');
-        let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
+            let startDate = dayjs(currentPeriod.startDate).add(3, 'hours');
+            let endDate = dayjs(nextPeriod.startDate).subtract(1, 'day');
 
-        let weeks = endDate.diff(startDate, 'weeks');
+            let weeks = endDate.diff(startDate, 'weeks');
 
-        for (let i = 0; i <= weeks; i++) {
-            let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
+            for (let i = 0; i <= weeks; i++) {
+                let currentDate = dayjs(startDate).add(i, 'weeks').toDate();
 
-            calendar.createEvent({
-                start: currentDate,
-                end: currentDate,
-                id: hash.sha256().update(`${currentPeriod.getFormattedString(currentDate, calendarType)}${currentDate}`).digest('hex'),
-                allDay: true,
-                busystatus: ICalEventBusyStatus.FREE,
-                transparency: ICalEventTransparency.TRANSPARENT,
-                summary: currentPeriod.getFormattedString(currentDate, calendarType)
-            })
+                calendar.createEvent({
+                    start: currentDate,
+                    end: currentDate,
+                    id: hash.sha256().update(`${currentPeriod.getWeekName(currentDate)}${currentDate}`).digest('hex'),
+                    allDay: true,
+                    busystatus: ICalEventBusyStatus.FREE,
+                    transparency: ICalEventTransparency.TRANSPARENT,
+                    summary: currentPeriod.getWeekName(currentDate),
+                    description: currentPeriod.getWeekDescription(currentDate, calendarType),
+                });
+            }
         }
     }
 
     calendar.save(`./src/public/calendar/${calendarType as string}.ics`).then().catch(err => console.error(err));
-    console.log(`Successfully generated calendar of type ${calendarType as string} for academic year ${getAcademicYear(currentAcademicYear)}`)
+    console.log(`Successfully generated calendar of type ${calendarType as string}`);
 }
