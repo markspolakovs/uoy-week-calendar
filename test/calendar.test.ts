@@ -58,9 +58,9 @@ describe('Period Class Specific Methods', () => {
 
         let exampleTerm = new Term(dayjs().toDate(), 'Autumn');
 
-        expect(exampleTerm.getFormattedString(today.toDate())).toBeDefined();
-        expect(exampleTerm.getFormattedString(today.toDate())).toBe('Autumn Term Week 1');
-        expect(exampleTerm.getFormattedString(today.add(3, 'weeks').toDate())).toBe('Autumn Term Week 4');
+        expect(exampleTerm.getWeekName(today.toDate())).toBeDefined();
+        expect(exampleTerm.getWeekName(today.toDate())).toBe('Autumn Term Week 1');
+        expect(exampleTerm.getWeekName(today.add(3, 'weeks').add(4, 'hours').toDate())).toBe('Autumn Term Week 4');
     });
 
     it('Holiday', () => {
@@ -68,7 +68,7 @@ describe('Period Class Specific Methods', () => {
 
         let exampleHoliday = new Holiday(today.toDate(), 'Test')
         expect(exampleHoliday).toBeDefined();
-        expect(exampleHoliday.getFormattedString(today.toDate())).toBe('Test Vacation Week 1')
+        expect(exampleHoliday.getWeekName(today.toDate())).toBe('Test Vacation Week 1')
     })
 });
 
@@ -86,8 +86,8 @@ describe('Semester One', function () {
     });
 
     it('week 1 should be correct type', () => {
-        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.UNDERGRADUATE)).toBe('Semester 1 Week 1 (Freshers)');
-        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.POSTGRADUATE)).toBe('Semester 1 Week 1 (Freshers)');
-        expect(semesterOne.getFormattedString(today.toDate(), CalendarType.STAFF)).toBe('Semester 1 Week 1 (Open Week)');
+        expect(semesterOne.getWeekDescription(today.toDate(), CalendarType.UNDERGRADUATE)).toBe('Freshers');
+        expect(semesterOne.getWeekDescription(today.toDate(), CalendarType.POSTGRADUATE)).toBe('Freshers');
+        expect(semesterOne.getWeekDescription(today.toDate(), CalendarType.STAFF)).toBe('Open Week');
     })
 });
