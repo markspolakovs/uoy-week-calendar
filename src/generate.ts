@@ -29,7 +29,7 @@ for (let calendarType of [CalendarType.UNDERGRADUATE, CalendarType.POSTGRADUATE,
     calendar.name(name);
     calendar.description(name);
 
-    for (let academicYear of academicYears.slice(0, academicYears.length - 1)) {
+    for (let academicYear of academicYears.slice(0, academicYears.length - 1)) { // Don't include the last academic year
         for (let currentPeriod of academicYear.periods) {
             let nextPeriod = getNextPeriod(currentPeriod, academicYear);
 
