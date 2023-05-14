@@ -19,14 +19,13 @@
             <h1>University of York's Week Numbers</h1>
             <hr />
             <p class="lead">This page provides an iCalendar (RFC 5545) format of the University of York's week numbers, according to the <a href="https://www.york.ac.uk/about/term-dates/" target="_blank">term dates</a>.</p>
-            <p>It is compatible with most calendar software, the program provides three different calendars depending on your circumstance. Simply copy one of the following URL to your Calendar software:</p>
-            <ul>
+            <p class="mb-1">It is compatible with most calendar software, the program provides three different calendars depending on your circumstance. Simply copy one of the following URL to your Calendar software:</p>
+            <ul class="mb-1">
                 <li><b>Undergraduate</b> - <a href="https://chriscn.github.io/uoy-week-calendar/calendar/undergraduate.ics">https://chriscn.github.io/uoy-week-calendar/calendar/undergraduate.ics</a></li>
                 <li><b>Postgraduate</b> - <a href="https://chriscn.github.io/uoy-week-calendar/calendar/postgraduate.ics">https://chriscn.github.io/uoy-week-calendar/calendar/postgraduate.ics</a></li>
                 <li><b>Staff</b> - <a href="https://chriscn.github.io/uoy-week-calendar/calendar/staff.ics">https://chriscn.github.io/uoy-week-calendar/calendar/staff.ics</a></li>
             </ul>
             <p>The program will generate all the Week Numbers up to the last academic year it knows about (currently this is 2029/2030). Feel free to poke me through various means when we run out of dates.</p>
-            <p><b>Busy Status:</b> Despite multiple attempts, the event is showing up as Busy in the Calendar. This is a case of Google not properly following the RFC5545 specification; if you have any ideas - please open a GitHub issue.</p>
             <h2>Format</h2>
             <p class="mb-0">From September 2023; each week can be described as one of the following types:</p>
             <ul class="mb-0">
@@ -42,6 +41,8 @@
             <p>All this data can be found in this <a href="https://docs.google.com/spreadsheets/d/1eJh5MMKvYYo0bjGf5IekGv-TGZrouPLa7y55KBcvCPI/edit?usp=sharing" target="_blank">spreadsheet</a>.</p>
             <h2>Source Code</h2>
             <p>The source code behind this project was originally developed by <a href="https://chrisnethercott.co.uk" target="_blank">Christopher Nethercott</a> and is available on <a href="https://github.com/chriscn/uoy-week-calendar">GitHub</a>.</p>
+            <h2>Notes</h2>
+            <p><b>Busy Status: </b>That calendar will occasionally display a Busy event status in your calendar; unfortunately there isn't anything I am able to do to fix this as I believe it is due to a Google caching issue.</p>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </body>
