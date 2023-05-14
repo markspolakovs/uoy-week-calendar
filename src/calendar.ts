@@ -81,7 +81,7 @@ export class SemesterOne implements Period {
             if (week == 1) {
                 description = `Freshers`
             } else if (week >= 2 && week <= 6) {
-                description = `Teaching Week ${week - 1}}`
+                description = `Teaching Week ${week - 1}`
             } else if (week == 7) {
                 description = 'Consolidation Week'
             } else if (week >= 8 && week <= 13) {
