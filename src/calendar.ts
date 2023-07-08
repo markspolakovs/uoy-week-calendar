@@ -54,12 +54,8 @@ export class Holiday implements Period {
     }
 }
 
-// Whomever had the dimwitted idea to convert to semester's I'll never know but it is a nightmare to try and code for.
-// The solution is the following, to split the year into Three Semesters and Three Holidays.
-// SemesterOne (Start till Christmas), Christmas, SemesterTwo(Christmas till Easter), Easter, Semester Three(Easter till Summer), Summer Holiday
-// The only thing that moves is Easter, and we can logic around that.
-// Staff also have different calendars than students now
-export class SemesterOne implements Period {
+// Period between start and Christmas
+export class Semester1A implements Period {
     readonly startDate: Date;
     readonly name: string;
 
@@ -103,8 +99,8 @@ export class SemesterOne implements Period {
     }
 }
 
-// This is for the period after Christmas but before Easter
-export class SemesterTwo implements Period {
+// Between Christmas and Semester 2 starting, normally 4 weeks long
+export class Semester1B implements Period {
     readonly startDate: Date;
     readonly name: string;
 
@@ -125,21 +121,15 @@ export class SemesterTwo implements Period {
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                description = 'Revision Week';
-            } else if (week >= 2 && week <= 4) {
+                description = "Revision Week"
+            } else if (2 <= week && week <= 4) {
                 description = `Assessment Week ${week - 1}`
-            } else if (week == 5) {
-                description = 'Refreshers Week'
-            } else if (week >= 6) {
-                description = `Teaching Week ${week - 5}`
             }
-        } else if(calendarType == CalendarType.STAFF) {
-            if (week == 1 || week == 2) {
+        } else if (calendarType == CalendarType.STAFF) {
+            if (week <= 2) {
                 description = `Open Week ${week}`
-            } else if (week >= 3 && week <= 5) {
+            } else {
                 description = `Marking Week ${week - 2}`
-            } else if (week >= 6) {
-                description = `Teaching Week ${week - 5}`
             }
         }
 
@@ -147,45 +137,80 @@ export class SemesterTwo implements Period {
     }
 }
 
-// Period after Easter before Summer
-export class SemesterThree implements Period {
-    readonly name: string;
-        this.name = "Semester 2";
-        return `${this.name} Week ${week}`;
+// Start of Semester 2 up until Easter
+export class Semester2A implements Period {
     readonly startDate: Date;
-    readonly type: string;
-    private readonly offset: number;
+    readonly name: string;
+
+    constructor(startDate: Date) {
+        this.startDate = startDate
+        this.name = "Semester 2";
+    }
+
+    getWeekName(inputDate: Date): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+
+        return `${this.name} Week ${week}`;
+    }
+    getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let description = "";
+        
+        if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
+            if (week == 1) {
+                description = "Refreshers Week";
+            } else {
+                description = `Teaching Week ${week - 1}`;
+            }
+        } else if (calendarType == CalendarType.STAFF) {
+            if (week == 1) {
+                description = "Marking Week 3"
+            } else {
+                description = `Teaching Week ${week - 1}`
+            }
+        }
+
+        return description;
+    }
+}
+
+// After Easter before Summer Vacation 
+export class Semester2B implements Period {
+    readonly startDate: Date;
+    readonly name: string;
+    readonly offset: number;
 
     constructor(startDate: Date, offset: number) {
-        this.startDate = startDate;
+        this.startDate = startDate
+        this.name = "Semester 2";
         this.offset = offset;
-        this.type = "Semester 2"; // lies
+    }
+    
+    getWeekName(inputDate: Date): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + this.offset;
+
+        return `${this.name} Week ${week}`;
     }
 
-    public getWeekName(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        return `${this.type} Week ${week}`
-    }
-
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + this.offset; // No requirement to add one as we already did in the offset
+    getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+        let week = getWeeksBetween(this.startDate, inputDate) + this.offset;
         let description = "";
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
-            if (week >= 12 && week <= 16) {
-                description = `Teaching Week ${week - 5}`
-            } else if (week == 17) {
+            if (week <= 12) {
+                description = `Teaching Week ${week - 1}`;
+            } else if (week == 13) {
                 description = 'Revision Week'
-            } else if (week <= 20) {
-                description = `Assessment Week ${week - 17}`
+            } else {
+                description = `Assessment Week ${week - 13}`
             }
         } else if (calendarType == CalendarType.STAFF) {
-            if (week >= 12 && week <= 16) {
-                description = `Teaching Week ${week - 5}`
-            } else if (week == 17 || week == 18) {
-                description = `Open Week ${week - 16}`
-            } else if (week <= 20) {
-                description = `Marking Week ${week - 18}`
+            if (week <= 12) {
+                description = `Teaching Week ${week - 1}`;
+            } else if (week == 13 || week == 14) {
+                description = `Open Week ${week - 12}`
+            } else {
+                description = `Marking Week ${week - 14}`
             }
         }
 
@@ -193,18 +218,19 @@ export class SemesterThree implements Period {
     }
 }
 
+
 export class SemesterSummerVacation implements Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     constructor(inputDate: Date) {
         this.startDate = inputDate;
-        this.type = 'Summer';
+        this.name = 'Summer';
     }
 
     public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        return `${this.type} Vacation Week ${week}`
+        return `${this.name} Vacation Week ${week}`
     }
 
     public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
@@ -254,7 +280,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(Date.UTC(2019, 11, 9)), "Christmas"),
             new Term(new Date(Date.UTC(2020, 0, 6)), "Spring"),
             new Holiday(new Date(Date.UTC(2020, 2, 16)), "Easter"),
-            new Term(new Date(Date.UTC(2020, 3, 14)), "Summer"),
+            new Term(new Date(Date.UTC(2020, 3, 13)), "Summer"),
             new Holiday(new Date(Date.UTC(2020, 5, 22)), "Summer"),
         ]
     },
@@ -274,7 +300,7 @@ export const academicYears: AcademicYear[] = [
             new Holiday(new Date(Date.UTC(2021, 11, 6)), "Christmas"),
             new Term(new Date(Date.UTC(2022, 0, 10)), "Spring"),
             new Holiday(new Date(Date.UTC(2022, 2, 21)), "Easter"),
-            new Term(new Date(Date.UTC(2022, 3, 19)), "Summer"),
+            new Term(new Date(Date.UTC(2022, 3, 18)), "Summer"),
             new Holiday(new Date(Date.UTC(2022, 5, 27)), "Summer"),
         ]
     },
@@ -291,77 +317,84 @@ export const academicYears: AcademicYear[] = [
     {
         periods: [
             // 2023/24
-            new SemesterOne(new Date(Date.UTC(2023, 8, 18))),
+            new Semester1A(new Date(Date.UTC(2023, 8, 18))),
             new Holiday(new Date(Date.UTC(2023, 11, 18)), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2024, 0, 8))),
+            new Semester1B(new Date(Date.UTC(2024, 0, 8))),
+            new Semester2A(new Date(Date.UTC(2024, 1, 5))),
             new Holiday(new Date(Date.UTC(2024, 2, 25)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2024, 3, 8)), 12),
+            new Semester2B(new Date(Date.UTC(2024, 3, 8)), 8),
             new SemesterSummerVacation(new Date(Date.UTC(2024, 5, 10))),
         ]
     },
     {
         periods: [
             // 2024/25
-            new SemesterOne(new Date(Date.UTC(2024, 8, 16))),
+            new Semester1A(new Date(Date.UTC(2024, 8, 16))),
             new Holiday(new Date(2024, 11, 9), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2025, 0, 6))),
+            new Semester1B(new Date(Date.UTC(2025, 0, 6))),
+            new Semester2A(new Date(Date.UTC(2025,1,3))),
             new Holiday(new Date(Date.UTC(2025, 3, 7)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2025, 3, 22)), 14),
+            new Semester2B(new Date(Date.UTC(2025, 3, 22)), 10),
             new SemesterSummerVacation(new Date(Date.UTC(2025, 5, 9))),
         ]
     },
     {
         periods: [
             // 2025/26
-            new SemesterOne(new Date(Date.UTC(2025, 8, 16))),
-            new Holiday(new Date(2025, 11, 9), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2026, 0, 8))),
-            new Holiday(new Date(Date.UTC(2026, 2, 25)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2026, 3, 8)), 13),
+            new Semester1A(new Date(Date.UTC(2025, 8, 15))),
+            new Holiday(new Date(2025, 11, 15), "Christmas"),
+            new Semester1B(new Date(Date.UTC(2026, 0, 5))),
+            new Semester2A(new Date(Date.UTC(2026,1,2))),
+            new Holiday(new Date(Date.UTC(2026, 2, 30)), "Easter"),
+            new Semester2B(new Date(Date.UTC(2026, 3, 13)), 9),
             new SemesterSummerVacation(new Date(Date.UTC(2026, 5, 10))),
         ]
     },
     {
         periods: [
             // 2026/27
-            new SemesterOne(new Date(Date.UTC(2026, 8, 14))),
+            new Semester1A(new Date(Date.UTC(2026, 8, 21))),
             new Holiday(new Date(2026, 11, 21), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2027, 0, 11))),
+            new Semester1B(new Date(Date.UTC(2027, 0, 11))),
+            new Semester2A(new Date(Date.UTC(2027,1,8))),
             new Holiday(new Date(Date.UTC(2027, 2, 22)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2027, 3, 13)), 11),
+            new Semester2B(new Date(Date.UTC(2027, 3, 13)), 7),
             new SemesterSummerVacation(new Date(Date.UTC(2027, 5, 14))),
         ]
     },
     {
         periods: [
             // 2027/28
-            new SemesterOne(new Date(Date.UTC(2027, 8, 20))),
+            new Semester1A(new Date(Date.UTC(2027, 8, 20))),
             new Holiday(new Date(2027, 11, 20), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2028, 0, 10))),
+            new Semester1B(new Date(Date.UTC(2028, 0, 10))),
+            new Semester2A(new Date(Date.UTC(2028,1,7))),
             new Holiday(new Date(Date.UTC(2028, 3, 10)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2028, 3, 24)), 14),
+            new Semester2B(new Date(Date.UTC(2028, 3, 24)), 10),
             new SemesterSummerVacation(new Date(Date.UTC(2028, 5, 12))),
         ]
     },
     {
         periods: [
             // 2028/29
-            new SemesterOne(new Date(Date.UTC(2028, 8, 18))),
+            new Semester1A(new Date(Date.UTC(2028, 8, 18))),
             new Holiday(new Date(2028, 11, 18), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2029, 0, 8))),
+            new Semester1B(new Date(Date.UTC(2029, 0, 8))),
+            new Semester2A(new Date(Date.UTC(2029,1,5))),
             new Holiday(new Date(Date.UTC(2029, 2, 26)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2029, 3, 9)), 12),
+            new Semester2B(new Date(Date.UTC(2029, 3, 9)), 8),
             new SemesterSummerVacation(new Date(Date.UTC(2029, 5, 14))),
         ]
     },
     {
         periods: [
             // 2029/30
-            new SemesterOne(new Date(Date.UTC(2029, 8, 17))),
+            new Semester1A(new Date(Date.UTC(2029, 8, 17))),
             new Holiday(new Date(2029, 11, 17), "Christmas"),
-            new SemesterTwo(new Date(Date.UTC(2030, 0, 7))),
+            new Semester1B(new Date(Date.UTC(2030, 0, 7))),
+            new Semester2A(new Date(Date.UTC(2030,1,4))),
             new Holiday(new Date(Date.UTC(2030, 3, 8)), "Easter"),
-            new SemesterThree(new Date(Date.UTC(2030, 3, 22)), 14),
+            new Semester2B(new Date(Date.UTC(2030, 3, 22)), 10),
             new SemesterSummerVacation(new Date(Date.UTC(2030, 5, 10))),
         ]
     }
@@ -373,16 +406,6 @@ export function getWeeksBetween(startDate: Date, endDate: Date): number {
 
 export function getAcademicYear(academicYear: AcademicYear): string {
     return `${academicYear.periods[0].startDate.getFullYear()}/${academicYear.periods.slice(-1)[0].startDate.getFullYear()}`
-}
-
-/**
- * Given date, returns which AcademicYear it belongs to.
- * @param date
- */
-export function getCurrentAcademicYear(date: Date): AcademicYear {
-    return academicYears.filter(academicYear => (
-        (academicYear.periods[0].startDate <= date && academicYear.periods.slice(-1)[0].startDate >= date)
-    ))[0];
 }
 
 export function getNextPeriod(currentPeriod: Period, currentAcademicYear: AcademicYear): Period {
