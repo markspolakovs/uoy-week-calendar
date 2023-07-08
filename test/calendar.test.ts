@@ -2,11 +2,10 @@ import {
     academicYears,
     CalendarType,
     getAcademicYear,
-    getCurrentAcademicYear,
     getNextPeriod,
     getWeeksBetween,
     Holiday,
-    SemesterOne,
+    Semester1A,
     Term,
 } from "../src/calendar";
 
@@ -27,11 +26,6 @@ describe('Calendar Testing Suite (Utility Methods)', () => {
        expect(getWeeksBetween(dayjs().toDate(), dayjs().toDate())).toBe(0); //
        expect(getWeeksBetween(dayjs().toDate(), dayjs().add(3, 'day').toDate())).toBe(0);
        expect(getWeeksBetween(dayjs().toDate(), dayjs().add(8, 'weeks').toDate())).toBe(8);
-    });
-
-    it('getCurrentAcademicYear', () => {
-        expect(getCurrentAcademicYear(new Date())).toBeDefined();
-        expect(getCurrentAcademicYear(new Date()).periods).toBeDefined();
     });
 
     it('getNextPeriod within same year', () => {
@@ -75,10 +69,10 @@ describe('Period Class Specific Methods', () => {
 describe('Semester One', function () {
     let today = dayjs();
 
-    let semesterOne = new SemesterOne(today.toDate());
+    let semesterOne = new Semester1A(today.toDate());
 
     it('should return Semester 1 as type', () => {
-        expect(semesterOne.type).toBe('Semester 1');
+        expect(semesterOne.name).toBe('Semester 1');
     });
 
     it('should return the same start date', () => {
@@ -90,4 +84,14 @@ describe('Semester One', function () {
         expect(semesterOne.getWeekDescription(today.toDate(), CalendarType.POSTGRADUATE)).toBe('Freshers');
         expect(semesterOne.getWeekDescription(today.toDate(), CalendarType.STAFF)).toBe('Open Week');
     })
+});
+
+describe('Periods in Academic Years', () => {
+    for (let academicYear of academicYears) {
+        for (let period of academicYear.periods) {
+            it(`${period.name} ${period.constructor.name} (${getAcademicYear(academicYear)}) (${period.startDate.toDateString()}) should start on a Monday`, () => {
+                expect(dayjs(period.startDate).day()).toBe(1); // 0 is Sunday
+            })
+        }
+    }
 });
