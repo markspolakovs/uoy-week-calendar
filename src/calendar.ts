@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 
 interface Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     getWeekName(inputDate: Date): string;
     getWeekDescription(inputDate: Date, calendarType: CalendarType): string;
@@ -20,15 +20,15 @@ export enum CalendarType {
 
 export class Term implements Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     constructor(startDate: Date, type: string) {
         this.startDate = startDate;
-        this.type = type;
+        this.name = type;
     }
 
     public getWeekName(inputDate: Date): string {
-        return `${this.type} Term Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
+        return `${this.name} Term Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
     }
 
     public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
@@ -38,15 +38,15 @@ export class Term implements Period {
 
 export class Holiday implements Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     constructor(startDate: Date, type: string) {
         this.startDate = startDate;
-        this.type = type;
+        this.name = type;
     }
 
     public getWeekName(inputDate: Date): string {
-        return `${this.type} Vacation Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
+        return `${this.name} Vacation Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
     }
 
     public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
@@ -61,16 +61,16 @@ export class Holiday implements Period {
 // Staff also have different calendars than students now
 export class SemesterOne implements Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     constructor(startDate: Date) {
         this.startDate = startDate;
-        this.type = "Semester 1";
+        this.name = "Semester 1";
     }
 
     public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        return `${this.type} Week ${week}`
+        return `${this.name} Week ${week}`
     }
 
     public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
@@ -106,16 +106,17 @@ export class SemesterOne implements Period {
 // This is for the period after Christmas but before Easter
 export class SemesterTwo implements Period {
     readonly startDate: Date;
-    readonly type: string;
+    readonly name: string;
 
     constructor(startDate: Date) {
         this.startDate = startDate;
-        this.type = "Semester 2";
+        this.name = "Semester 1";
     }
 
     public getWeekName(inputDate: Date): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        return `${this.type} Week ${week}`
+
+        return `${this.name} Week ${week + 13}`;
     }
 
     public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
@@ -148,6 +149,9 @@ export class SemesterTwo implements Period {
 
 // Period after Easter before Summer
 export class SemesterThree implements Period {
+    readonly name: string;
+        this.name = "Semester 2";
+        return `${this.name} Week ${week}`;
     readonly startDate: Date;
     readonly type: string;
     private readonly offset: number;
