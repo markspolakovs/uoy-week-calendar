@@ -32,7 +32,7 @@ The types are dependent on which calendar you subscribe to: undergraduate, postg
 
 ## Notes
 
-The `offset` value is defined as what week number Semester Three would start on if the Easter Holiday wasn't there.
+The `offset` value, is the  Week Number that begins after Easter. For 2023/24 this is 8. It will be one more than the teaching week due to either the 3rd Marking Week or Refreshers Week.
 
 ## License
 
