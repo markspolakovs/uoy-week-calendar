@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
-import {CalendarType, academicYears, getAcademicYear, getCurrentAcademicYear, getNextPeriod} from "./calendar";
+import {CalendarType, academicYears, getAcademicYear, getNextPeriod} from "./calendar";
 import {ICalCalendar, ICalEventBusyStatus, ICalEventTransparency} from "ical-generator";
 import hash from "hash.js";
 import * as fs from "fs";
 
 const today = dayjs().add(3, 'hour');
-const currentAcademicYear = getCurrentAcademicYear(today.toDate());
 
 if (!fs.existsSync('./src/public/calendar')) {
     fs.mkdirSync('./src/public/calendar', { recursive: true });
