@@ -4,8 +4,7 @@ interface Period {
     readonly startDate: Date;
     readonly name: string;
 
-    getWeekName(inputDate: Date): string;
-    getWeekDescription(inputDate: Date, calendarType: CalendarType): string;
+    getWeekName(inputDate: Date, calendarType: CalendarType): string;
 }
 
 type AcademicYear = {
@@ -27,12 +26,8 @@ export class Term implements Period {
         this.name = type;
     }
 
-    public getWeekName(inputDate: Date): string {
+    public getWeekName(inputDate: Date, calendarType: CalendarType): string {
         return `${this.name} Term Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
-    }
-
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        return "";
     }
 }
 
@@ -45,12 +40,8 @@ export class Holiday implements Period {
         this.name = type;
     }
 
-    public getWeekName(inputDate: Date): string {
+    public getWeekName(inputDate: Date, calendarType: CalendarType): string {
         return `${this.name} Vacation Week ${getWeeksBetween(this.startDate, inputDate) + 1}`;
-    }
-
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        return "";
     }
 }
 
@@ -64,38 +55,33 @@ export class Semester1A implements Period {
         this.name = "Semester 1";
     }
 
-    public getWeekName(inputDate: Date): string {
+    public getWeekName(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        return `${this.name} Week ${week}`
-    }
-
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let description = "";
+        let name = '';
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                description = `Freshers`
+                name = `S1/0 (Freshers' Week)`
             } else if (week >= 2 && week <= 6) {
-                description = `Teaching Week ${week - 1}`
+                name = `S1/${week - 1} (Teaching Week ${week - 1})`
             } else if (week == 7) {
-                description = 'Consolidation Week'
+                name = 'S1/C (Consolidation)'
             } else if (week >= 8 && week <= 13) {
-                description = `Teaching Week ${week - 2}`
+                name = `S1/${week - 2} (Teaching Week ${week - 2})`
             }
         } else if(calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                description = `Open Week`
+                name = `S1/0 (Freshers' Week)`
             } else if (week >= 2 && week <= 6) {
-                description = `Teaching Week ${week - 1}}`
+                name = `S1/${week - 1} (Teaching Week ${week - 1})`
             } else if (week == 7) {
-                description = 'Open Week'
+                name = 'S1/C (Open Week)'
             } else if (week >= 8 && week <= 13) {
-                description = `Teaching Week ${week - 2}`
+                name = `S1/${week - 2} (Teaching Week ${week - 2})`
             }
         }
 
-        return description;
+        return name;
     }
 }
 
@@ -109,31 +95,25 @@ export class Semester1B implements Period {
         this.name = "Semester 1";
     }
 
-    public getWeekName(inputDate: Date): string {
+    public getWeekName(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-
-        return `${this.name} Week ${week + 13}`;
-    }
-
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let description = "";
+        let name = '';
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                description = "Revision Week"
+                name = `S1/${week + 11} (Revision Week)`
             } else if (2 <= week && week <= 4) {
-                description = `Assessment Week ${week - 1}`
+                name = `S1/${week + 11} (Assessment Week ${week - 1})`
             }
         } else if (calendarType == CalendarType.STAFF) {
             if (week <= 2) {
-                description = `Open Week ${week}`
+                name = `S1/${week + 11} (Open Week ${week})`
             } else {
-                description = `Marking Week ${week - 2}`
+                name = `S1/${week + 11} (Marking Week ${week - 2})`
             }
         }
 
-        return description;
+        return name;
     }
 }
 
@@ -147,30 +127,25 @@ export class Semester2A implements Period {
         this.name = "Semester 2";
     }
 
-    getWeekName(inputDate: Date): string {
+    getWeekName(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
+        let name = '';
 
-        return `${this.name} Week ${week}`;
-    }
-    getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let description = "";
-        
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week == 1) {
-                description = "Refreshers Week";
+                name = "S2/0 (Refreshers' Week)";
             } else {
-                description = `Teaching Week ${week - 1}`;
+                name = `S2/${week - 1} (Teaching Week ${week - 1})`;
             }
         } else if (calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                description = "Marking Week 3"
+                name = "S2/0 (Marking Week 3)"
             } else {
-                description = `Teaching Week ${week - 1}`
+                name = `S2/${week - 1} (Teaching Week ${week - 1})`
             }
         }
 
-        return description;
+        return name;
     }
 }
 
@@ -185,36 +160,30 @@ export class Semester2B implements Period {
         this.name = "Semester 2";
         this.offset = offset;
     }
-    
-    getWeekName(inputDate: Date): string {
-        let week = getWeeksBetween(this.startDate, inputDate) + this.offset;
 
-        return `${this.name} Week ${week}`;
-    }
-
-    getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+    getWeekName(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + this.offset;
-        let description = "";
+        let name = "";
 
         if (calendarType == CalendarType.UNDERGRADUATE || calendarType == CalendarType.POSTGRADUATE) {
             if (week <= 12) {
-                description = `Teaching Week ${week - 1}`;
+                name = `S2/${week - 3} (Teaching Week ${week - 3})`;
             } else if (week == 13) {
-                description = 'Revision Week'
+                name = `S2/${week - 1} (Revision Week)`
             } else {
-                description = `Assessment Week ${week - 13}`
+                name = `S2/${week - 1} (Assessment Week ${week - 13})`
             }
         } else if (calendarType == CalendarType.STAFF) {
             if (week <= 12) {
-                description = `Teaching Week ${week - 1}`;
+                name = `Teaching Week ${week - 1}`;
             } else if (week == 13 || week == 14) {
-                description = `Open Week ${week - 12}`
+                name = `Open Week ${week - 12}`
             } else {
-                description = `Marking Week ${week - 14}`
+                name = `Marking Week ${week - 14}`
             }
         }
 
-        return description;
+        return name;
     }
 }
 
@@ -228,38 +197,38 @@ export class SemesterSummerVacation implements Period {
         this.name = 'Summer';
     }
 
-    public getWeekName(inputDate: Date): string {
+    public getWeekName(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
         return `${this.name} Vacation Week ${week}`
     }
 
-    public getWeekDescription(inputDate: Date, calendarType: CalendarType): string {
+    public getWeekname(inputDate: Date, calendarType: CalendarType): string {
         let week = getWeeksBetween(this.startDate, inputDate) + 1;
-        let description = "";
+        let name = "";
 
         if (calendarType == CalendarType.UNDERGRADUATE) {
             if (week == 10 || week == 11) {
-                description = `Resit Period`;
+                name = `Resit Period`;
             }
         } else if (calendarType == CalendarType.POSTGRADUATE) {
-            description = `Teaching Week ${week}`;
+            name = `Teaching Week ${week}`;
 
             if (week == 10 || week == 11) {
-                description += ' (Resist Period)'
+                name += ' (Resist Period)'
             }
         } else if (calendarType == CalendarType.STAFF) {
             if (week == 1) {
-                description = 'Marking Week 3'; // staff term finishes one week into vacation period
+                name = 'Marking Week 3'; // staff term finishes one week into vacation period
             } else {
-                description = `Open Week ${week - 1}`
+                name = `Open Week ${week - 1}`
 
                 if (week == 4) {
-                    description += ' / Board of Examiners'
+                    name += ' / Board of Examiners'
                 }
             }
         }
 
-        return description;
+        return name;
     }
 }
 
@@ -330,7 +299,7 @@ export const academicYears: AcademicYear[] = [
         periods: [
             // 2024/25
             new Semester1A(new Date(Date.UTC(2024, 8, 16))),
-            new Holiday(new Date(2024, 11, 9), "Christmas"),
+            new Holiday(new Date(2024, 11, 16), "Christmas"),
             new Semester1B(new Date(Date.UTC(2025, 0, 6))),
             new Semester2A(new Date(Date.UTC(2025,1,3))),
             new Holiday(new Date(Date.UTC(2025, 3, 7)), "Easter"),
